@@ -42,14 +42,13 @@ def pop():
 
 def remove(element):
     """ Remove specified element's first occurrence from the list """
-    if len(queue[0]) == 0:
+    if len(queue) == 0:
         return "The queue is empty - please try again later."
     removed_element = None
-    for queueIndex, nested in enumerate(queue):
-        for nestedIndex, turtleElement in enumerate(nested):
-            if turtleElement.getElement() == element:
-                removed_element = nested.pop(nestedIndex).destroy()
-                break
+    for index, turtleElement in enumerate(queue):
+        if turtleElement.getElement() == element:
+            removed_element = queue.pop(index).destroy()
+            break
     if removed_element is None:
         return "No elements match the string: " + element
     else:
