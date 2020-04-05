@@ -20,7 +20,7 @@ TARGET_PRIME = 16777213
 
 def append(element):
     """ Appends an element onto the end of the queue """
-    if isQueueFull():  # Inform the user that the queue is full
+    if isQueueFull():
         return "The queue is full - please try again later."
     else:
         t = TurtleElement(element)
@@ -67,14 +67,14 @@ def printAll():
 def leave():
     """ Exits the program """
     print("Goodbye.")
-    return exit(0)  # Code 0 for successful termination
+    return None  # Distinct singleton 'None' returned, while loop will get this and exit
 
 
 def updateTurtleStates():
     """ Loops through the queue, sets new positions for turtles that was affected by pop() or remove() """
-    for i in range(len(queue)):
-        x, y = X_PEAK - (i % 10) * 50, Y_PEAK - (i // 10) * 100
-        queue[i].setPosition(x, y)
+    for elements in range(len(queue)):
+        x, y = X_PEAK - (elements % 10) * 50, Y_PEAK - (elements // 10) * 100
+        queue[elements].setPosition(x, y)
 
 
 def choices(choice):
@@ -94,7 +94,7 @@ def choices(choice):
     elif choice is 'P':  # Print
         return printAll()
     elif choice is 'Q':  # Quit
-        return leave()
+        return leave()  # Returns None
     return "There is no options that corresponds to your input, please try again."
 
 
@@ -123,7 +123,7 @@ def getColour(identity):
 
 
 def isQueueFull():
-    """ Returns True if there are 5 or more rows populated and if last row is full, False if there's less than 5 """
+    """ Returns True if we hit maximum limit (50 elements, 10 elements per row, with 5 maximum rows) """
     return len(queue) == 50
 
 
@@ -192,12 +192,16 @@ class Colour:
         return self.b
 
 
-if __name__ == '__main__':  # Entry point, this block of code runs every time we run
+if __name__ == '__main__':  # Entry point, this block of code runs first after catching all the method/class definitions
     screen = turtle.Screen()  # Initializes the screen
-    screen.colormode(255)  # We change the colormode to 255 so it can take 8-bit RGB values
-    screen.setup(WIDTH, HEIGHT)  # Offset accounting for border
-    drawMenu()  # Draws menu
+    screen.colormode(255)  # We change the colormode to 255 so turtles can take RGB values (0-255)
+    screen.setup(WIDTH, HEIGHT)  # Sets up the screen to be a certain width and certain height (constants defined above)
+    drawMenu()
     # Do-While loop, as it should print 'another' instead of 'a' after the first selection
-    print(choices(input("Please select a menu option: ")))
-    while True:  # Loop until user chooses the 'Quit' option
-        print(choices(input("Please select another menu option: ")))
+    exiting = choices(input("Please select a menu option: "))
+    # Loop until user chooses the 'Quit' option, every option except Quit returns strings, so the while loop continues
+    # The option to quit returns None, therefore it exits the while loop
+    while exiting is not None:
+        print(exiting)
+        exiting = choices(input("Please select a menu option: "))
+    screen.bye()  # Gracefully exits the turtle window

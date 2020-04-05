@@ -32,7 +32,7 @@ def remove(element):
 def printAll():
     """ Prints all elements in a single line, with a blank space as separator """
     if len(queue) == 0:
-        print("Queue is Empty.")
+        print("EMPTY QUEUE")
     else:
         """ * in front of an iterable (list in this case) unpacks it, and print() prints out all the unpacked elements
             Using sep=" " means we can include a space between elements when printing """
@@ -42,7 +42,6 @@ def printAll():
 def leave():
     """ Exit program """
     print("Goodbye.")
-    exit()
 
 
 def choices(userInput):
@@ -63,6 +62,7 @@ def choices(userInput):
         printAll()
     elif userInput == 'Q':
         leave()
+        return True  # We return True for the program to successfully exit without any error messages
     else:
         print("There is no options that corresponds to your input, please try again.")
 
@@ -76,6 +76,7 @@ def drawMenu():  # This is only called at the start of the program, displayed no
 if __name__ == '__main__':  # Entry point, this block of code runs every time we run
     drawMenu()
     # Do-While loop, as it should print 'another' instead of 'a' after the first selection
-    choices(input("Please select a menu option: "))
-    while True:  # Loop until user chooses the 'Quit' option
-        choices(input("Please select another menu option: "))
+    exiting = choices(input("Please select a menu option: "))
+    # Loop until user chooses the 'Quit' option, None == False, so the while loop continues as print() returns None
+    while not exiting:
+        exiting = choices(input("Please select another menu option: "))
