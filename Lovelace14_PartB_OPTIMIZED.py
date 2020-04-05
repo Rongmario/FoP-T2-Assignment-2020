@@ -35,9 +35,9 @@ def pop():
     """ Remove first element of the list to fit FIFO style """
     if len(queue) == 0:
         return "The queue is empty - please try again later."
-    removedElement = queue.pop(0).destroy()  # Returns popped element
+    removed_element = queue.pop(0).destroy()  # Returns popped element
     updateTurtleStates()
-    return "First element: '" + removedElement + "' is removed"
+    return "First element: '" + removed_element + "' is removed"
 
 
 def remove(element):
@@ -45,8 +45,8 @@ def remove(element):
     if len(queue) == 0:
         return "The queue is empty - please try again later."
     removed_element = None
-    for index, turtleElement in enumerate(queue):
-        if turtleElement.getElement() == element:
+    for index, turtle_element in enumerate(queue):
+        if turtle_element.getElement() == element:
             removed_element = queue.pop(index).destroy()
             break
     if removed_element is None:
@@ -61,7 +61,7 @@ def printAll():
     if len(queue) == 0:
         return "EMPTY QUEUE"
     # .join a new iterable made of elements in TurtleElement objects in queue
-    return "Queue: " + " ".join([turtleElement.getElement() for turtleElement in queue])
+    return "Queue: " + " ".join([turtle_element.getElement() for turtle_element in queue])
 
 
 def leave():
@@ -80,17 +80,17 @@ def updateTurtleStates():
 def choices(choice):
     """ Handles making choices. All of these methods returns a string and print() is called in the main block """
     if choice is 'A':  # Append
-        appendInput = input("Please enter string to input into the list: ")
-        while len(appendInput) == 0:
-            appendInput = input("Nothing is entered, please enter string to input into the list: ")
-        return append(appendInput)
+        append_input = input("Please enter string to input into the list: ")
+        while len(append_input) == 0:
+            append_input = input("Nothing is entered, please enter string to input into the list: ")
+        return append(append_input)
     elif choice is 'N':  # Next
         return pop()
     elif choice is 'L':  # Leave
-        removeInput = input("Please enter string to find and remove the first occurrence in the list: ")
-        while len(removeInput) == 0:
-            removeInput = input("Nothing is entered, please enter string to remove the first occurrence in the list: ")
-        return remove(removeInput)
+        remove_input = input("Please enter string to find and remove the first occurrence in the list: ")
+        while len(remove_input) == 0:
+            remove_input = input("Nothing is entered, please enter string to remove the first occurrence in the list: ")
+        return remove(remove_input)
     elif choice is 'P':  # Print
         return printAll()
     elif choice is 'Q':  # Quit
@@ -131,7 +131,7 @@ def isQueueFull():
 
 class TurtleElement:
 
-    destroyedIds = list()  # Don't need a set here since its guaranteed the elements won't duplicate
+    destroyed_ids = list()  # Don't need a set here since its guaranteed the elements won't duplicate
     total = 0  # Increments every time a TurtleElement object is created, caps at 16777213
 
     def __init__(self, element):
@@ -140,7 +140,7 @@ class TurtleElement:
         self.turtle.speed(0)
         # If there's unused turtle identities, we use those first, otherwise increment and use counter
         try:
-            self.identity = TurtleElement.destroyedIds.pop(0)
+            self.identity = TurtleElement.destroyed_ids.pop(0)
         except IndexError:
             TurtleElement.total += 1
             self.identity = TurtleElement.total
@@ -156,7 +156,7 @@ class TurtleElement:
     def destroy(self):
         self.turtle.clear()
         self.turtle.hideturtle()
-        TurtleElement.destroyedIds.append(self.identity)
+        TurtleElement.destroyed_ids.append(self.identity)
         return self.element
 
     def getPosition(self):
