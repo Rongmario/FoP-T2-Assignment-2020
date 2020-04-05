@@ -15,8 +15,9 @@ def append(element):
 def pop():
     """ Remove first element of the list to fit FIFO style """
     if len(queue) == 0:
-        return "The queue is empty - please try again later."
-    print("First element:", "'" + queue.pop(0) + "'", "is removed")
+        print("The queue is empty - please try again later.")
+    else:
+        print("First element:", "'" + queue.pop(0) + "'", "is removed")
 
 
 def remove(element):
