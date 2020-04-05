@@ -106,7 +106,7 @@ def drawMenu():  # This is only called at the start of the program, displayed no
 
 def getColour(identity):
     """ By using an algorithm to find the highest generator of a cyclic group (sampled between 2-50).
-        We can find a number of generators giving us ways to generate unique colours at the same time a high variance.
+        We can find a number of generators giving ways to generate new colours, with a high variance at the same time.
         We then raise it to the power of a number that just increments every time we create a turtle.
         We then mod (%) to the prime (16777213, largest before 2^24), getting a 24-bit RGB integer.
 
@@ -115,14 +115,15 @@ def getColour(identity):
         Green is gotten from shifting to the right by 8-bits, with clearing anything but the rightmost 8-bit value
         with zeroes (by doing BITWISE AND 255). This also applies to blue's 8-bit values, which we do not need to
         shift as we want to get the rightmost 8-bit value from the whole 24-bit value, thus we clear the left-hand
-        16-bit value by BITWISE AND 255 again and clearing them to zeroes. """
+        16-bit value by BITWISE AND 255 again and clearing them to zeroes.
+
+        This method returns a tuple containing R, G, B values. """
     initial = pow(45, identity, TARGET_PRIME)
     return initial >> 16, (initial >> 8) & 255, initial & 255
 
 
 def isQueueFull():
     """ Returns True if there are 5 or more rows populated and if last row is full, False if there's less than 5 """
-    # return len(queue) >= 5 and isRowFull()
     return len(queue) == 50
 
 
