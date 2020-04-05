@@ -62,9 +62,10 @@ def choices(userInput):
         printAll()
     elif userInput == 'Q':
         leave()
-        return True  # We return True for the program to successfully exit without any error messages
+        return True  # Return True for the program to successfully exit without any error messages
     else:
         print("There is no options that corresponds to your input, please try again.")
+    return False  # Return False for the program to continue
 
 
 def drawMenu():  # This is only called at the start of the program, displayed not more than once
